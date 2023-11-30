@@ -13,7 +13,7 @@ public class Move : MonoBehaviour
         misDatos.PlayerPerfil.MiRigidbody2D = GetComponent<Rigidbody2D>();
         misDatos.PlayerPerfil.MiAnimator = GetComponent<Animator>();
         misDatos.PlayerPerfil.MiSprite = GetComponent<SpriteRenderer>();
-        misDatos.PlayerPerfil.MiCollider2D = GetComponent<PolygonCollider2D>();
+        misDatos.PlayerPerfil.MiCollider2D = GetComponent<BoxCollider2D>();
         misDatos.PlayerPerfil.SaltarMask = LayerMask.GetMask("Pisos", "Plataformas", "Enemigos");
     }
 
@@ -24,7 +24,9 @@ public class Move : MonoBehaviour
         misDatos.PlayerPerfil.Direccion = new Vector2(misDatos.PlayerPerfil.MoverHorizontal, 0f);
        
         int velocidadX = (int)misDatos.PlayerPerfil.MiRigidbody2D.velocity.x;
-        misDatos.PlayerPerfil.MiSprite.flipX = velocidadX < 0;
+        //misDatos.PlayerPerfil.MiSprite.flipX = velocidadX < 0;
+        if(Input.GetKeyDown(KeyCode.A)) misDatos.PlayerPerfil.MiSprite.flipX = true;
+        if(Input.GetKeyDown(KeyCode.D)) misDatos.PlayerPerfil.MiSprite.flipX = false;
         misDatos.PlayerPerfil.MiAnimator.SetInteger("Velocidad", velocidadX);
 
         misDatos.PlayerPerfil.MiAnimator.SetBool("EnAire", !EnContactoConPlataforma());
@@ -40,6 +42,7 @@ public class Move : MonoBehaviour
     {
         return misDatos.PlayerPerfil.MiCollider2D.IsTouchingLayers(misDatos.PlayerPerfil.SaltarMask);
     }
+
 }
 
 
